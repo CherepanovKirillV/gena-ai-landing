@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gena-ai — десктопный AI-ассистент для разработки</title>
+<meta name="description" content="gena-ai пишет код, запускает результат, проверяет логику и коммитит изменения. Работает с DeepSeek, OpenRouter, GigaChat и локальными моделями Ollama.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@600;800&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0B7A75}a:hover{color:#075A56}
+.btn:hover{opacity:.88}
+:focus-visible{outline:3px solid #0B7A75;outline-offset:3px}
+summary{cursor:pointer}
+</style>
+
+</head>
+<body>
+
+
+<div id="top" style="font-family:'Onest',system-ui,sans-serif;font-size:17px;line-height:1.6;color:#0F1A24;background:#EDF0F2">
+
+<!-- NAV -->
+<header style="border-bottom:1px solid #CFD8DE">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:18px clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px">
+<a href="#top" aria-label="gena-ai — на главную" style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#0F1A24;text-decoration:none">gena<span style="color:#0B7A75">-ai</span></a>
+<nav aria-label="Основная навигация" style="display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;font-weight:500">
+<a href="#video" style="color:#0F1A24;text-decoration:none">Видео</a>
+<a href="#features" style="color:#0F1A24;text-decoration:none">Возможности</a>
+<a href="#how" style="color:#0F1A24;text-decoration:none">Как работает</a>
+<a href="#pricing" style="color:#0F1A24;text-decoration:none">Тарифы</a>
+<a href="#faq" style="color:#0F1A24;text-decoration:none">FAQ</a>
+</nav>
+<a class="btn" href="#cta" style="display:inline-block;box-sizing:border-box;min-height:44px;padding:10px 20px;background:#0B7A75;color:#FFFFFF;border-radius:4px;font-weight:600;font-size:15px;text-decoration:none;line-height:24px">Скачать</a>
+</div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section>
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(48px,7vw,96px) clamp(16px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5vw,64px);align-items:center">
+<div style="min-width:0;display:flex;flex-direction:column;gap:24px">
+<p style="margin:0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#0B7A75">v1.0 · macOS · Windows · Linux</p>
+<h1 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(36px,5vw,64px);line-height:1.05;letter-spacing:-0.03em;text-wrap:balance">AI-ассистент, который доводит задачу до <span style="color:#0B7A75">работающего приложения</span></h1>
+<p style="margin:0;max-width:56ch;font-size:19px;color:#3E4D5A">gena-ai — десктопное рабочее место разработчика. Агент пишет код, запускает результат, снимает скриншоты, проверяет логику по вашим критериям и сам коммитит изменения.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center">
+<a class="btn" href="#cta" style="display:inline-flex;flex-direction:column;box-sizing:border-box;min-height:44px;padding:12px 24px;background:#0B7A75;color:#FFFFFF;border-radius:4px;font-weight:600;text-decoration:none;line-height:1.3">Скачать бесплатно<span style="font-size:13px;font-weight:400;opacity:.9">14 дней Pro без карты</span></a>
+<a class="btn" href="#video" style="display:inline-flex;align-items:center;box-sizing:border-box;min-height:44px;padding:12px 24px;border:1px solid #0F1A24;color:#0F1A24;border-radius:4px;font-weight:600;text-decoration:none">Смотреть видео</a>
+</div>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px 28px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#3E4D5A">
+<li><strong style="color:#0F1A24">5</strong> провайдеров моделей</li>
+<li><strong style="color:#0F1A24">6</strong> ролей в совете</li>
+<li><strong style="color:#0F1A24">100%</strong> локально на Ollama</li>
+</ul>
+</div>
+
+<!-- session log -->
+<div style="min-width:0;background:#0F1A24;color:#D7E3EA;border-radius:8px;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.6">
+<div style="padding:12px 18px;border-bottom:1px solid #22323F;font-size:13px;color:#9FB1BD">gena-ai — ~/projects/tetris</div>
+<div style="padding:20px 18px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-wrap:wrap;gap:4px 14px"><span style="color:#9FB1BD">вы</span><span style="flex:1 1 220px;min-width:0">Сделай игру «Тетрис» на Python и проверь, что она запускается.</span></div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">write_file</span><span>src/tetris.py</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">write_file</span><span>src/game.py</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">run_command</span><span>python3 tetris.py</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">ui-review</span><span>3 скриншота · UX 9/10</span></div>
+</div>
+<div style="padding:12px 14px;background:#16232F;border-radius:4px;display:flex;flex-wrap:wrap;gap:2px 14px"><span style="color:#5FD0BE">auto-commit</span><span>#12 2026-10-04 15:47:12</span><span style="color:#9FB1BD">4 файла</span></div>
+</div>
+<div style="padding:10px 18px;border-top:1px solid #22323F;display:flex;flex-wrap:wrap;gap:4px 24px;font-size:12px;color:#9FB1BD"><span>DeepSeek · deepseek-chat</span><span>tokens: 12 480</span><span>git: main ↑1</span></div>
+</div>
+</div>
+</section>
+
+<!-- MODELS -->
+<section style="border-top:1px solid #CFD8DE;border-bottom:1px solid #CFD8DE">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:22px clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px">
+<span style="font-size:14px;color:#3E4D5A;margin-right:8px">Работает с моделями</span>
+<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">DeepSeek</span>
+<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">OpenRouter</span>
+<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">GigaChat</span>
+<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">Ollama</span>
+<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">Custom OpenAI-API</span>
+</div>
+</section>
+
+<!-- VIDEO -->
+<section id="video">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:62ch">
+<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">Посмотрите, как gena-ai закрывает задачу</h2>
+<p style="margin:0;color:#3E4D5A">Короткое демо: от промпта до запущенного приложения и авто-коммита.</p>
+</div>
+<a href="https://vimeo.com/1236997334" aria-label="Смотреть демо gena-ai на Vimeo" style="display:block;position:relative;box-sizing:border-box;width:100%;max-width:100%;aspect-ratio:16/9;min-height:220px;background:#0F1A24;border-radius:8px;overflow:hidden;color:#D7E3EA;text-decoration:none;background-image:repeating-linear-gradient(0deg,#142230 0,#142230 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,#142230 0,#142230 1px,transparent 1px,transparent 40px)">
+<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+<span style="display:flex;align-items:center;justify-content:center;width:96px;height:96px;border-radius:50%;background:#5FD0BE">
+<svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><path d="M12 6 L30 18 L12 30 Z" fill="#0F1A24"/></svg>
+</span>
+</span>
+<span style="position:absolute;left:20px;right:20px;bottom:16px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#9FB1BD">
+<span>gena-ai · демо</span>
+<span>Откроется на Vimeo</span>
+</span>
+</a>
+</div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:#E1E7EB">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:62ch">
+<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">Всё, чтобы задача была закрыта</h2>
+<p style="margin:0;color:#3E4D5A">Одно окно вместо чата, редактора, терминала и git-клиента.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px">
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">council</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Мультиагентный совет</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Шесть ролей — разработчик, дизайнер, PM, маркетолог, юрист и критик — разбирают задачу с разных сторон и дают итоговый план.</p>
+</article>
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">playground</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Cursor-режим</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Агент создаёт, правит и переименовывает файлы прямо в проекте. Каждое действие остаётся под вашим контролем.</p>
+</article>
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">logic-test</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Авто-тест и UX-ревью</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Определяет тип проекта, запускает его, снимает скриншоты и оценивает UX: мелкие тач-таргеты, картинки без alt, поля без label.</p>
+</article>
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">fix-all</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Кнопка «Исправить всё»</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Замечания ревьюера уходят агенту-кодеру одним нажатием, и он сам исправляет найденные проблемы.</p>
+</article>
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">auto-commit</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Коммит после каждого изменения</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Сообщение вида <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#0F1A24">#12 2026-10-04 15:47:12</span>. Нет изменений — нет коммита.</p>
+</article>
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">ollama</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Локальные модели</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">С Ollama код и ключи остаются на вашем компьютере. Терминал, git и редактор встроены в то же окно.</p>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:40px">
+<h2 style="margin:0;max-width:22ch;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">От промпта до проверенного результата</h2>
+<ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:32px 28px">
+<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">01</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Опишите задачу</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Обычным текстом: «сделай лендинг», «почини баг в парсере».</p>
+</li>
+<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">02</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Агент работает в проекте</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Читает файлы, пишет код, запускает команды во встроенном терминале.</p>
+</li>
+<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">03</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Приложение проверяется</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Проект запускается, снимаются скриншоты, UX-ревьюер сверяет результат с вашими критериями.</p>
+</li>
+<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">04</span>
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Изменения закоммичены</h3>
+<p style="margin:0;color:#3E4D5A;font-size:16px">Авто-коммит фиксирует результат. У вас рабочее приложение и чистая история.</p>
+</li>
+</ol>
+<div style="max-width:520px;box-sizing:border-box;background:#0F1A24;color:#D7E3EA;border-radius:6px;padding:18px 20px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.7;overflow-x:auto">
+<div style="color:#9FB1BD"># запуск одной командой</div>
+<div>npm start</div>
+<div style="color:#9FB1BD;margin-top:8px"># или локальная модель, код не уходит в облако</div>
+<div>ollama pull qwen2.5-coder:14b</div>
+</div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:#E1E7EB">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:62ch">
+<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">Начните бесплатно</h2>
+<p style="margin:0;color:#3E4D5A">Модели оплачиваются напрямую провайдеру или бесплатно на Ollama.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;align-items:stretch">
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:16px">
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px">Free</h3>
+<p style="margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px"><span style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.02em">0 ₽</span><span style="color:#3E4D5A;font-size:15px">навсегда</span></p>
+<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:#3E4D5A;font-size:16px;flex:1 1 auto">
+<li>Полный редактор и терминал</li>
+<li>Чат с любым провайдером, включая Ollama</li>
+<li>Авто-коммиты и git-панель</li>
+<li>1 рабочая папка</li>
+</ul>
+<a class="btn" href="#cta" style="display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:10px 20px;border:1px solid #0F1A24;color:#0F1A24;border-radius:4px;font-weight:600;text-decoration:none">Скачать</a>
+</article>
+
+<article style="min-width:0;background:#0F1A24;color:#D7E3EA;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px">
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;color:#FFFFFF">Pro</h3>
+<span style="padding:2px 10px;border-radius:4px;background:#5FD0BE;color:#0F1A24;font-size:13px;font-weight:600">Популярный</span>
+</div>
+<p style="margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px"><span style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.02em;color:#FFFFFF">1 490 ₽</span><span style="color:#9FB1BD;font-size:15px">/ мес</span></p>
+<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px;flex:1 1 auto">
+<li>Всё из Free</li>
+<li>Мультиагентный совет (6 ролей)</li>
+<li>Авто-тест логики и UX-ревьюер</li>
+<li>Кнопка «Исправить всё»</li>
+<li>Неограниченные рабочие папки</li>
+</ul>
+<a class="btn" href="#cta" style="display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:10px 20px;background:#5FD0BE;color:#0F1A24;border-radius:4px;font-weight:600;text-decoration:none">Начать 14 дней бесплатно</a>
+</article>
+
+<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:16px">
+<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px">Team</h3>
+<p style="margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px"><span style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.02em">990 ₽</span><span style="color:#3E4D5A;font-size:15px">/ чел. в мес, от 5 человек</span></p>
+<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:#3E4D5A;font-size:16px;flex:1 1 auto">
+<li>Всё из Pro</li>
+<li>Единые критерии проверки</li>
+<li>Локальное развёртывание на Ollama или своём шлюзе</li>
+<li>Онбординг, SLA и выделенный канал связи</li>
+</ul>
+<p style="margin:0;font-size:15px;color:#3E4D5A">Запрос: <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#0F1A24;user-select:all">sales@gena-ai.app</span></p>
+</article>
+
+</div>
+<p style="margin:0;max-width:70ch;color:#3E4D5A;font-size:16px">Enterprise — индивидуально: приватный контур без внешних API, кастомные агенты, интеграция с вашим CI, NDA. Цены указаны в рублях, для команд возможна оплата по счёту.</p>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+<div style="max-width:880px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:32px">
+<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em">Частые вопросы</h2>
+<div style="display:flex;flex-direction:column;border-top:1px solid #B5C2CB">
+<details open style="padding:18px 0;border-bottom:1px solid #B5C2CB">
+<summary style="font-weight:600;font-size:18px">Нужен ли интернет?</summary>
+<p style="margin:10px 0 0;color:#3E4D5A">Нет, если вы работаете с локальными моделями через Ollama. Для DeepSeek, OpenRouter и GigaChat интернет нужен только на время генерации.</p>
+</details>
+<details style="padding:18px 0;border-bottom:1px solid #B5C2CB">
+<summary style="font-weight:600;font-size:18px">Куда уходят мои файлы и ключи?</summary>
+<p style="margin:10px 0 0;color:#3E4D5A">Ключи хранятся в вашем .env и передаются только выбранному провайдеру. В режиме Ollama файлы не покидают компьютер. Служебные данные лежат в папке .gena-ai/ и игнорируются git.</p>
+</details>
+<details style="padding:18px 0;border-bottom:1px solid #B5C2CB">
+<summary style="font-weight:600;font-size:18px">Какие модели поддерживаются?</summary>
+<p style="margin:10px 0 0;color:#3E4D5A">DeepSeek, OpenRouter, GigaChat, Ollama и любой OpenAI-совместимый эндпоинт. Для Ollama подойдёт модель с function calling, например qwen2.5-coder:14b.</p>
+</details>
+<details style="padding:18px 0;border-bottom:1px solid #B5C2CB">
+<summary style="font-weight:600;font-size:18px">Авто-коммит не засорит историю?</summary>
+<p style="margin:10px 0 0;color:#3E4D5A">Коммит создаётся только при наличии изменений, а авто-коммит можно выключить в любой момент.</p>
+</details>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section id="cta" style="background:#0F1A24;color:#D7E3EA">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,96px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:24px">
+<h2 style="margin:0;max-width:20ch;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.8vw,48px);line-height:1.1;letter-spacing:-0.025em;color:#FFFFFF;text-wrap:balance">Закройте следующую задачу вместе с gena-ai</h2>
+<p style="margin:0;max-width:56ch;color:#9FB1BD">Скачайте бесплатно, подключите свой ключ или Ollama — и получите ассистента, который доводит код до работающего результата.</p>
+<form style="display:flex;flex-wrap:wrap;gap:12px;max-width:560px">
+<label for="email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Рабочий e-mail</label>
+<input id="email" name="email" type="email" placeholder="you@company.com" style="flex:1 1 260px;min-width:0;box-sizing:border-box;min-height:48px;padding:10px 16px;border:1px solid #3A4B59;border-radius:4px;background:#16232F;color:#FFFFFF;font-family:'Onest',system-ui,sans-serif;font-size:16px">
+<button type="button" class="btn" style="min-height:48px;padding:10px 24px;border:0;border-radius:4px;background:#5FD0BE;color:#0F1A24;font-family:'Onest',system-ui,sans-serif;font-size:16px;font-weight:600;cursor:pointer">Получить ссылку</button>
+</form>
+<p style="margin:0;font-size:14px;color:#9FB1BD">Пришлём ссылку на сборку и короткую инструкцию по запуску. Без спама. Сборки для macOS (dmg), Windows (exe) и Linux (AppImage).</p>
+</div>
+</section>
+
+</main>
+
+<footer style="background:#0F1A24;color:#9FB1BD;border-top:1px solid #22323F">
+<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:24px clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:14px">
+<span>© 2026 gena-ai. Все права защищены.</span>
+<span>Поддержка: <span style="font-family:'JetBrains Mono',ui-monospace,monospace;color:#D7E3EA;user-select:all">support@gena-ai.app</span></span>
+</div>
+</footer>
+
+</div>
+
+</body>
+</html>
