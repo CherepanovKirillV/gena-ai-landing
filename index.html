@@ -3,294 +3,295 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>gena-ai — десктопный AI-ассистент для разработки</title>
-<meta name="description" content="gena-ai пишет код, запускает результат, проверяет логику и коммитит изменения. Работает с DeepSeek, OpenRouter, GigaChat и локальными моделями Ollama.">
-
+<title>gena-ai + Project Synapse — IDE с советом из девяти ИИ-агентов</title>
+<meta name="description" content="Десктопная IDE для macOS, Windows и Linux с девятью ИИ-агентами в роли совета директоров: CEO, CTO, CFO и другие. Работает с DeepSeek, OpenRouter, GigaChat и локально через Ollama.">
+<meta name="theme-color" content="#EDF0F2">
+<meta property="og:title" content="gena-ai + Project Synapse">
+<meta property="og:description" content="IDE с копайлотом и командой из девяти ИИ-агентов, которые работают прямо в вашей рабочей папке.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@600;800&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-body{margin:0}
-a{color:#0B7A75}a:hover{color:#075A56}
+:root{
+  --bg:#EDF0F2; --alt:#E1E7EB; --surface:#FFFFFF; --surface-2:#F6F8F9; --line:#CFD8DE;
+  --text:#0F1A24; --muted:#3E4D5A; --cyan:#0B7A75; --violet:#5B4BD1; --ink:#0F1A24;
+  --display:'Geologica',system-ui,sans-serif; --body:'Onest',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--cyan)}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:clamp(16px,4vw,48px)}
+.sec{padding-block:clamp(56px,8vw,104px)}
+.sec--line{border-top:1px solid var(--line)}
+.sec--alt{background:var(--alt)}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-weight:800;font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:-0.03em}
+h2{font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em}
+h3{font-weight:600;font-size:20px;line-height:1.25}
+p{margin:0}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 24px;border-radius:4px;font-weight:600;font-size:16px;text-decoration:none;line-height:1.3;border:1px solid transparent}
 .btn:hover{opacity:.88}
-:focus-visible{outline:3px solid #0B7A75;outline-offset:3px}
-summary{cursor:pointer}
-</style>
+.btn--main{background:var(--cyan);color:#FFFFFF}
+.btn--ghost{border-color:var(--text);color:var(--text)}
 
+/* nav */
+.nav{border-bottom:1px solid var(--line)}
+.nav__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px;padding-block:16px}
+.brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-0.02em;color:var(--text);text-decoration:none}
+.brand span{color:var(--cyan)}
+.nav__links{display:flex;flex-wrap:wrap;gap:8px 26px;font-size:15px;font-weight:500}
+.nav__links a{color:var(--text);text-decoration:none}
+.nav__links a:hover{color:var(--cyan)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(32px,5vw,64px);align-items:center;padding-block:clamp(40px,6vw,80px)}
+.hero__copy{display:flex;flex-direction:column;gap:24px;min-width:0}
+.hero__copy .lead{font-size:19px;color:var(--muted);max-width:54ch}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px 16px}
+.facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 28px;font-family:var(--mono);font-size:14px;color:var(--muted)}
+.facts strong{color:var(--text);font-weight:500}
+.player{min-width:0;display:flex;flex-direction:column;gap:10px}
+.player video{display:block;width:100%;max-width:100%;aspect-ratio:16/9;background:#101114;border:1px solid var(--line);border-radius:8px}
+.player figcaption{font-size:14px;color:var(--muted)}
+.player{margin:0}
+
+/* problem */
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px clamp(32px,6vw,80px);align-items:start}
+.split p.big{font-size:20px;line-height:1.55;color:var(--text);max-width:60ch}
+.split p.big + p{margin-top:16px}
+
+/* head */
+.head{display:flex;flex-direction:column;gap:12px;max-width:64ch;margin-bottom:40px}
+
+/* window parts */
+.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.part{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.part b{font-family:var(--mono);font-weight:500;font-size:15px;color:var(--text)}
+.part span{font-size:15px;color:var(--muted)}
+.flow{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;font-family:var(--mono);font-size:14px}
+.flow span{padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface-2)}
+.flow i{font-style:normal;color:var(--muted)}
+.flow-note{margin-top:14px;color:var(--muted);font-size:16px;max-width:64ch}
+
+/* agents */
+.agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.agent{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.agent__top{display:flex;align-items:center;gap:10px}
+.agent__dot{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.agent__tag{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--c)}
+.agent__role{font-size:14px;color:var(--muted)}
+.agent p{font-size:15px;color:var(--muted)}
+.modes{margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:28px}
+.mode{border-top:2px solid var(--text);padding-top:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.mode p{color:var(--muted);font-size:16px}
+code{font-family:var(--mono);font-size:.9em;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 6px;overflow-wrap:anywhere}
+
+/* trio */
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:16px}
+.card p{color:var(--muted);font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:var(--mono);font-size:13px;color:var(--text)}
+
+/* cta */
+.cta{background:#0F1A24;color:#D7E3EA}
+.cta__in{display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.cta h2{max-width:20ch;color:#FFFFFF}
+.cta .eyebrow{color:#5FD0BE}
+.cta .lead{color:#9FB1BD;max-width:56ch}
+.cta .btn--main{background:#5FD0BE;color:#0F1A24}
+.cta small{color:#9FB1BD;font-size:14px}
+.cta .mono{color:#D7E3EA;user-select:all}
+
+footer{background:#0F1A24;border-top:1px solid #22323F;color:#9FB1BD;font-size:14px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:22px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
 
-
-<div id="top" style="font-family:'Onest',system-ui,sans-serif;font-size:17px;line-height:1.6;color:#0F1A24;background:#EDF0F2">
-
-<!-- NAV -->
-<header style="border-bottom:1px solid #CFD8DE">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:18px clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px">
-<a href="#top" aria-label="gena-ai — на главную" style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#0F1A24;text-decoration:none">gena<span style="color:#0B7A75">-ai</span></a>
-<nav aria-label="Основная навигация" style="display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;font-weight:500">
-<a href="#video" style="color:#0F1A24;text-decoration:none">Видео</a>
-<a href="#features" style="color:#0F1A24;text-decoration:none">Возможности</a>
-<a href="#how" style="color:#0F1A24;text-decoration:none">Как работает</a>
-<a href="#pricing" style="color:#0F1A24;text-decoration:none">Тарифы</a>
-<a href="#faq" style="color:#0F1A24;text-decoration:none">FAQ</a>
-</nav>
-<a class="btn" href="#cta" style="display:inline-block;box-sizing:border-box;min-height:44px;padding:10px 20px;background:#0B7A75;color:#FFFFFF;border-radius:4px;font-weight:600;font-size:15px;text-decoration:none;line-height:24px">Скачать</a>
-</div>
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="gena-ai — на главную">gena<span>-ai</span></a>
+    <nav class="nav__links" aria-label="Основная навигация">
+      <a href="#video">Видео</a>
+      <a href="#ide">Gena-ai</a>
+      <a href="#council">Synapse</a>
+      <a href="#privacy">Приватность</a>
+      <a href="#cta">Попробовать</a>
+    </nav>
+  </div>
 </header>
 
-<main>
+<main id="top">
 
 <!-- HERO -->
-<section>
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(48px,7vw,96px) clamp(16px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5vw,64px);align-items:center">
-<div style="min-width:0;display:flex;flex-direction:column;gap:24px">
-<p style="margin:0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#0B7A75">v1.0 · macOS · Windows · Linux</p>
-<h1 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(36px,5vw,64px);line-height:1.05;letter-spacing:-0.03em;text-wrap:balance">AI-ассистент, который доводит задачу до <span style="color:#0B7A75">работающего приложения</span></h1>
-<p style="margin:0;max-width:56ch;font-size:19px;color:#3E4D5A">gena-ai — десктопное рабочее место разработчика. Агент пишет код, запускает результат, снимает скриншоты, проверяет логику по вашим критериям и сам коммитит изменения.</p>
-<div style="display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center">
-<a class="btn" href="#cta" style="display:inline-flex;flex-direction:column;box-sizing:border-box;min-height:44px;padding:12px 24px;background:#0B7A75;color:#FFFFFF;border-radius:4px;font-weight:600;text-decoration:none;line-height:1.3">Скачать бесплатно<span style="font-size:13px;font-weight:400;opacity:.9">14 дней Pro без карты</span></a>
-<a class="btn" href="#video" style="display:inline-flex;align-items:center;box-sizing:border-box;min-height:44px;padding:12px 24px;border:1px solid #0F1A24;color:#0F1A24;border-radius:4px;font-weight:600;text-decoration:none">Смотреть видео</a>
-</div>
-<ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px 28px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#3E4D5A">
-<li><strong style="color:#0F1A24">5</strong> провайдеров моделей</li>
-<li><strong style="color:#0F1A24">6</strong> ролей в совете</li>
-<li><strong style="color:#0F1A24">100%</strong> локально на Ollama</li>
-</ul>
-</div>
+<section class="wrap hero" id="video">
+  <div class="hero__copy">
+    <p class="eyebrow">gena-ai + Project Synapse</p>
+    <h1>Среда разработки с «советом директоров» из девяти ИИ-агентов</h1>
+    <p class="lead">Одиночкам и небольшим командам не хватает стратегической, финансовой и продуктовой экспертизы. Gena-ai даёт полноценную IDE, а Project Synapse добавляет девять агентов, которые работают прямо в вашей рабочей папке.</p>
+    <div class="hero__cta">
+      <a class="btn btn--main" href="#cta">Запросить сборку</a>
+      <a class="btn btn--ghost" href="#council">Кто в совете</a>
+    </div>
+    <ul class="facts">
+      <li><strong>9</strong> агентов</li>
+      <li><strong>3</strong> ОС</li>
+      <li><strong>офлайн</strong> на Ollama</li>
+    </ul>
+  </div>
 
-<!-- session log -->
-<div style="min-width:0;background:#0F1A24;color:#D7E3EA;border-radius:8px;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.6">
-<div style="padding:12px 18px;border-bottom:1px solid #22323F;font-size:13px;color:#9FB1BD">gena-ai — ~/projects/tetris</div>
-<div style="padding:20px 18px;display:flex;flex-direction:column;gap:14px">
-<div style="display:flex;flex-wrap:wrap;gap:4px 14px"><span style="color:#9FB1BD">вы</span><span style="flex:1 1 220px;min-width:0">Сделай игру «Тетрис» на Python и проверь, что она запускается.</span></div>
-<div style="display:flex;flex-direction:column;gap:4px">
-<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">write_file</span><span>src/tetris.py</span></div>
-<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">write_file</span><span>src/game.py</span></div>
-<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">run_command</span><span>python3 tetris.py</span></div>
-<div style="display:flex;flex-wrap:wrap;gap:0 14px"><span style="color:#5FD0BE;min-width:112px">ui-review</span><span>3 скриншота · UX 9/10</span></div>
-</div>
-<div style="padding:12px 14px;background:#16232F;border-radius:4px;display:flex;flex-wrap:wrap;gap:2px 14px"><span style="color:#5FD0BE">auto-commit</span><span>#12 2026-10-04 15:47:12</span><span style="color:#9FB1BD">4 файла</span></div>
-</div>
-<div style="padding:10px 18px;border-top:1px solid #22323F;display:flex;flex-wrap:wrap;gap:4px 24px;font-size:12px;color:#9FB1BD"><span>DeepSeek · deepseek-chat</span><span>tokens: 12 480</span><span>git: main ↑1</span></div>
-</div>
-</div>
+  <figure class="player">
+    <video id="promo" src="./promo.mp4" poster="./poster.jpg" autoplay muted loop playsinline controls preload="auto" aria-label="Видео о Project Synapse: редактор, копайлот и совет из девяти агентов">
+      Ваш браузер не воспроизводит видео. <a href="./promo.mp4">Скачать ролик</a>
+    </video>
+    <figcaption>35 секунд, без звука, с субтитрами.</figcaption>
+  </figure>
 </section>
 
-<!-- MODELS -->
-<section style="border-top:1px solid #CFD8DE;border-bottom:1px solid #CFD8DE">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:22px clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px">
-<span style="font-size:14px;color:#3E4D5A;margin-right:8px">Работает с моделями</span>
-<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">DeepSeek</span>
-<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">OpenRouter</span>
-<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">GigaChat</span>
-<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">Ollama</span>
-<span style="padding:4px 12px;border:1px solid #B5C2CB;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">Custom OpenAI-API</span>
-</div>
+<!-- PROBLEM -->
+<section class="sec">
+  <div class="wrap split">
+    <div class="head" style="margin:0">
+      <p class="eyebrow">Проблема</p>
+      <h2>Код вы напишете. Решения по продукту, деньгам и стратегии принимать некому</h2>
+    </div>
+    <div>
+      <p class="big">Разработчики-одиночки и небольшие команды обычно сами тянут и архитектуру, и бюджет, и позиционирование.</p>
+      <p class="big">Связка gena-ai и Project Synapse закрывает этот пробел: один вопрос обсуждают специалисты разных профилей, а ответ приходит в ту же среду, где вы пишете код.</p>
+    </div>
+  </div>
 </section>
 
-<!-- VIDEO -->
-<section id="video">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:32px">
-<div style="display:flex;flex-direction:column;gap:12px;max-width:62ch">
-<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">Посмотрите, как gena-ai закрывает задачу</h2>
-<p style="margin:0;color:#3E4D5A">Короткое демо: от промпта до запущенного приложения и авто-коммита.</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:12px">
-<div style="position:relative;width:100%;max-width:100%;aspect-ratio:16/9;background:#0F1A24;border-radius:8px;overflow:hidden">
-<iframe src="https://player.vimeo.com/video/1236997334?dnt=1" title="Демо gena-ai" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-</div>
-<p style="margin:0;font-size:14px;color:#3E4D5A">Видео не загружается? <a href="https://vimeo.com/1236997334">Открыть на Vimeo</a></p>
-</div>
-</div>
+<!-- GENA-AI -->
+<section class="sec sec--alt" id="ide">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Gena-ai</p>
+      <h2>Всё в одном окне</h2>
+      <p class="muted">Десктопное приложение для macOS, Windows и Linux объединяет всё, что нужно для работы над проектом.</p>
+    </div>
+    <div class="parts">
+      <div class="part"><b>Дерево файлов</b><span>Вся рабочая папка перед глазами</span></div>
+      <div class="part"><b>Редактор Monaco</b><span>Код в привычном редакторе</span></div>
+      <div class="part"><b>WYSIWYG Markdown</b><span>Документация и заметки без разметки</span></div>
+      <div class="part"><b>Терминал</b><span>Команды без переключения окон</span></div>
+      <div class="part"><b>Git-панель</b><span>Изменения и коммиты рядом с кодом</span></div>
+      <div class="part"><b>AI-чат</b><span>Копайлот в том же окне</span></div>
+    </div>
+    <div class="flow" aria-label="Что делает агент">
+      <span>читает файлы</span><i>→</i><span>вносит diff-правки</span><i>→</i><span>запускает команды</span><i>→</i><span>typecheck</span>
+    </div>
+    <p class="flow-note">Агент не просто отвечает в чате. Он работает с вашим проектом и проверяет результат, а вы остаётесь под контролем.</p>
+  </div>
 </section>
 
-<!-- FEATURES -->
-<section id="features" style="background:#E1E7EB">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:40px">
-<div style="display:flex;flex-direction:column;gap:12px;max-width:62ch">
-<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">Всё, чтобы задача была закрыта</h2>
-<p style="margin:0;color:#3E4D5A">Одно окно вместо чата, редактора, терминала и git-клиента.</p>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px">
+<!-- SYNAPSE -->
+<section class="sec" id="council">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Project Synapse</p>
+      <h2>Девять агентов как совет директоров</h2>
+      <p class="muted">Встроенный модуль добавляет роли, которых обычно нет в команде из одного человека.</p>
+    </div>
 
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">council</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Мультиагентный совет</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Шесть ролей — разработчик, дизайнер, PM, маркетолог, юрист и критик — разбирают задачу с разных сторон и дают итоговый план.</p>
-</article>
+    <div class="agents">
+      <article class="agent" style="--c:#0B7A75"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">CEO</span></div><span class="agent__role">Стратег</span><p>Цели, решения, итоговый синтез совета.</p></article>
+      <article class="agent" style="--c:#5B4BD1"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">CTO</span></div><span class="agent__role">Технический директор</span><p>Архитектура, стек, код, интеграции.</p></article>
+      <article class="agent" style="--c:#2F7D3A"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">CFO</span></div><span class="agent__role">Финансовый директор</span><p>Бюджет, юнит-экономика, окупаемость.</p></article>
+      <article class="agent" style="--c:#B85C00"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">CPO</span></div><span class="agent__role">Продуктовый менеджер</span><p>MVP, сценарии, приоритеты UX/UI.</p></article>
+      <article class="agent" style="--c:#C02A5B"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">CMO</span></div><span class="agent__role">Маркетолог</span><p>Позиционирование, каналы, контент.</p></article>
+      <article class="agent" style="--c:#8A6A00"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">COO</span></div><span class="agent__role">Операционный директор</span><p>Спринты, сроки, ресурсы, риски.</p></article>
+      <article class="agent" style="--c:#1F63C4"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">DevOps</span></div><span class="agent__role">Инфраструктура</span><p>Деплой, мониторинг, окружение.</p></article>
+      <article class="agent" style="--c:#7A4FB3"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">Secretary</span></div><span class="agent__role">Секретарь</span><p>Ведёт работу совета.</p></article>
+      <article class="agent" style="--c:#0A7C9E"><div class="agent__top"><span class="agent__dot"></span><span class="agent__tag">DataScientist</span></div><span class="agent__role">Данные</span><p>Данные и аналитика.</p></article>
+    </div>
 
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">playground</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Cursor-режим</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Агент создаёт, правит и переименовывает файлы прямо в проекте. Каждое действие остаётся под вашим контролем.</p>
-</article>
-
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">logic-test</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Авто-тест и UX-ревью</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Определяет тип проекта, запускает его, снимает скриншоты и оценивает UX: мелкие тач-таргеты, картинки без alt, поля без label.</p>
-</article>
-
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">fix-all</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Кнопка «Исправить всё»</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Замечания ревьюера уходят агенту-кодеру одним нажатием, и он сам исправляет найденные проблемы.</p>
-</article>
-
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">auto-commit</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Коммит после каждого изменения</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Сообщение вида <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#0F1A24">#12 2026-10-04 15:47:12</span>. Нет изменений — нет коммита.</p>
-</article>
-
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:12px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">ollama</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;line-height:1.25">Локальные модели</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">С Ollama код и ключи остаются на вашем компьютере. Терминал, git и редактор встроены в то же окно.</p>
-</article>
-
-</div>
-</div>
+    <div class="modes">
+      <div class="mode"><h3>Boardroom</h3><p>Коллегиальное решение: вопрос обсуждают все нужные роли, в конце приходит итог совета.</p></div>
+      <div class="mode"><h3>Direct</h3><p>Прямой вызов одного агента, например <code>@CTO объясни Docker</code>.</p></div>
+      <div class="mode"><h3>Cross-check</h3><p>Проверка критических решений: второй взгляд до того, как вы начнёте их воплощать.</p></div>
+    </div>
+  </div>
 </section>
 
-<!-- HOW -->
-<section id="how">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:40px">
-<h2 style="margin:0;max-width:22ch;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">От промпта до проверенного результата</h2>
-<ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:32px 28px">
-<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">01</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Опишите задачу</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Обычным текстом: «сделай лендинг», «почини баг в парсере».</p>
-</li>
-<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">02</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Агент работает в проекте</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Читает файлы, пишет код, запускает команды во встроенном терминале.</p>
-</li>
-<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">03</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Приложение проверяется</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Проект запускается, снимаются скриншоты, UX-ревьюер сверяет результат с вашими критериями.</p>
-</li>
-<li style="min-width:0;display:flex;flex-direction:column;gap:10px;border-top:2px solid #0F1A24;padding-top:16px">
-<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#0B7A75">04</span>
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:20px;line-height:1.25">Изменения закоммичены</h3>
-<p style="margin:0;color:#3E4D5A;font-size:16px">Авто-коммит фиксирует результат. У вас рабочее приложение и чистая история.</p>
-</li>
-</ol>
-<div style="max-width:520px;box-sizing:border-box;background:#0F1A24;color:#D7E3EA;border-radius:6px;padding:18px 20px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.7;overflow-x:auto">
-<div style="color:#9FB1BD"># запуск одной командой</div>
-<div>npm start</div>
-<div style="color:#9FB1BD;margin-top:8px"># или локальная модель, код не уходит в облако</div>
-<div>ollama pull qwen2.5-coder:14b</div>
-</div>
-</div>
+<!-- RAG / PRIVACY / PROVIDERS -->
+<section class="sec sec--alt" id="privacy">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Под капотом</p>
+      <h2>Знания, экономия токенов и приватность</h2>
+    </div>
+    <div class="trio">
+      <article class="card">
+        <h3>Своя база знаний у каждого агента</h3>
+        <p>RAG на FAISS и ONNX с многоязычной моделью эмбеддингов. Семантический поиск работает по загруженным документам.</p>
+        <ul>
+          <li>PDF, DOCX и ссылки (URL)</li>
+          <li>Изолированная база у каждого агента</li>
+          <li>Индекс хранится локально в <code>index.json</code></li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Меньше токенов, больше контроля</h3>
+        <ul>
+          <li>Правки приходят diff-патчами, а не полным переписыванием файлов</li>
+          <li>Режим «только чтение»</li>
+          <li>Кэш промптов</li>
+          <li>API-ключи хранятся локально</li>
+        </ul>
+        <p>С локальной моделью через Ollama всё работает офлайн, и код никуда не уходит.</p>
+      </article>
+      <article class="card">
+        <h3>Любой провайдер модели</h3>
+        <div class="chips">
+          <span class="chip">DeepSeek</span><span class="chip">OpenRouter</span><span class="chip">GigaChat</span><span class="chip">Ollama</span><span class="chip">OpenAI-совместимый API</span>
+        </div>
+        <p>Кнопка «Проверить соединение» сразу покажет, всё ли настроено правильно.</p>
+      </article>
+    </div>
+  </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing" style="background:#E1E7EB">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:40px">
-<div style="display:flex;flex-direction:column;gap:12px;max-width:62ch">
-<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em;text-wrap:balance">Начните бесплатно</h2>
-<p style="margin:0;color:#3E4D5A">Модели оплачиваются напрямую провайдеру или бесплатно на Ollama.</p>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;align-items:stretch">
-
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:16px">
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px">Free</h3>
-<p style="margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px"><span style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.02em">0 ₽</span><span style="color:#3E4D5A;font-size:15px">навсегда</span></p>
-<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:#3E4D5A;font-size:16px;flex:1 1 auto">
-<li>Полный редактор и терминал</li>
-<li>Чат с любым провайдером, включая Ollama</li>
-<li>Авто-коммиты и git-панель</li>
-<li>1 рабочая папка</li>
-</ul>
-<a class="btn" href="#cta" style="display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:10px 20px;border:1px solid #0F1A24;color:#0F1A24;border-radius:4px;font-weight:600;text-decoration:none">Скачать</a>
-</article>
-
-<article style="min-width:0;background:#0F1A24;color:#D7E3EA;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:16px">
-<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px">
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px;color:#FFFFFF">Pro</h3>
-<span style="padding:2px 10px;border-radius:4px;background:#5FD0BE;color:#0F1A24;font-size:13px;font-weight:600">Популярный</span>
-</div>
-<p style="margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px"><span style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.02em;color:#FFFFFF">1 490 ₽</span><span style="color:#9FB1BD;font-size:15px">/ мес</span></p>
-<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px;flex:1 1 auto">
-<li>Всё из Free</li>
-<li>Мультиагентный совет (6 ролей)</li>
-<li>Авто-тест логики и UX-ревьюер</li>
-<li>Кнопка «Исправить всё»</li>
-<li>Неограниченные рабочие папки</li>
-</ul>
-<a class="btn" href="#cta" style="display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:10px 20px;background:#5FD0BE;color:#0F1A24;border-radius:4px;font-weight:600;text-decoration:none">Начать 14 дней бесплатно</a>
-</article>
-
-<article style="min-width:0;background:#FFFFFF;border:1px solid #CFD8DE;border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:16px">
-<h3 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:600;font-size:21px">Team</h3>
-<p style="margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px"><span style="font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.02em">990 ₽</span><span style="color:#3E4D5A;font-size:15px">/ чел. в мес, от 5 человек</span></p>
-<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:#3E4D5A;font-size:16px;flex:1 1 auto">
-<li>Всё из Pro</li>
-<li>Единые критерии проверки</li>
-<li>Локальное развёртывание на Ollama или своём шлюзе</li>
-<li>Онбординг, SLA и выделенный канал связи</li>
-</ul>
-<p style="margin:0;font-size:15px;color:#3E4D5A">Запрос: <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#0F1A24;user-select:all">sales@gena-ai.app</span></p>
-</article>
-
-</div>
-<p style="margin:0;max-width:70ch;color:#3E4D5A;font-size:16px">Enterprise — индивидуально: приватный контур без внешних API, кастомные агенты, интеграция с вашим CI, NDA. Цены указаны в рублях, для команд возможна оплата по счёту.</p>
-</div>
-</section>
-
-<!-- FAQ -->
-<section id="faq">
-<div style="max-width:880px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,104px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:32px">
-<h2 style="margin:0;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.025em">Частые вопросы</h2>
-<div style="display:flex;flex-direction:column;border-top:1px solid #B5C2CB">
-<details open style="padding:18px 0;border-bottom:1px solid #B5C2CB">
-<summary style="font-weight:600;font-size:18px">Нужен ли интернет?</summary>
-<p style="margin:10px 0 0;color:#3E4D5A">Нет, если вы работаете с локальными моделями через Ollama. Для DeepSeek, OpenRouter и GigaChat интернет нужен только на время генерации.</p>
-</details>
-<details style="padding:18px 0;border-bottom:1px solid #B5C2CB">
-<summary style="font-weight:600;font-size:18px">Куда уходят мои файлы и ключи?</summary>
-<p style="margin:10px 0 0;color:#3E4D5A">Ключи хранятся в вашем .env и передаются только выбранному провайдеру. В режиме Ollama файлы не покидают компьютер. Служебные данные лежат в папке .gena-ai/ и игнорируются git.</p>
-</details>
-<details style="padding:18px 0;border-bottom:1px solid #B5C2CB">
-<summary style="font-weight:600;font-size:18px">Какие модели поддерживаются?</summary>
-<p style="margin:10px 0 0;color:#3E4D5A">DeepSeek, OpenRouter, GigaChat, Ollama и любой OpenAI-совместимый эндпоинт. Для Ollama подойдёт модель с function calling, например qwen2.5-coder:14b.</p>
-</details>
-<details style="padding:18px 0;border-bottom:1px solid #B5C2CB">
-<summary style="font-weight:600;font-size:18px">Авто-коммит не засорит историю?</summary>
-<p style="margin:10px 0 0;color:#3E4D5A">Коммит создаётся только при наличии изменений, а авто-коммит можно выключить в любой момент.</p>
-</details>
-</div>
-</div>
-</section>
-
-<!-- CTA -->
-<section id="cta" style="background:#0F1A24;color:#D7E3EA">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,8vw,96px) clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:24px">
-<h2 style="margin:0;max-width:20ch;font-family:'Geologica',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.8vw,48px);line-height:1.1;letter-spacing:-0.025em;color:#FFFFFF;text-wrap:balance">Закройте следующую задачу вместе с gena-ai</h2>
-<p style="margin:0;max-width:56ch;color:#9FB1BD">Скачайте бесплатно, подключите свой ключ или Ollama — и получите ассистента, который доводит код до работающего результата.</p>
-<form style="display:flex;flex-wrap:wrap;gap:12px;max-width:560px">
-<label for="email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Рабочий e-mail</label>
-<input id="email" name="email" type="email" placeholder="you@company.com" style="flex:1 1 260px;min-width:0;box-sizing:border-box;min-height:48px;padding:10px 16px;border:1px solid #3A4B59;border-radius:4px;background:#16232F;color:#FFFFFF;font-family:'Onest',system-ui,sans-serif;font-size:16px">
-<button type="button" class="btn" style="min-height:48px;padding:10px 24px;border:0;border-radius:4px;background:#5FD0BE;color:#0F1A24;font-family:'Onest',system-ui,sans-serif;font-size:16px;font-weight:600;cursor:pointer">Получить ссылку</button>
-</form>
-<p style="margin:0;font-size:14px;color:#9FB1BD">Пришлём ссылку на сборку и короткую инструкцию по запуску. Без спама. Сборки для macOS (dmg), Windows (exe) и Linux (AppImage).</p>
-</div>
+<!-- AUDIENCE + CTA -->
+<section class="cta" id="cta">
+  <div class="wrap sec">
+    <div class="cta__in">
+      <p class="eyebrow">Для кого</p>
+      <h2>Для тех, кому нужна структурированная экспертиза</h2>
+      <p class="lead">Начинающим программистам, вайбкодерам и основателям стартапов. Тем, кто хочет меньше зависеть от западных IDE с подпиской.</p>
+      <a class="btn btn--main" href="mailto:support@gena-ai.app?subject=Запрос%20сборки%20gena-ai">Запросить сборку</a>
+      <small>Или напишите на <span class="mono">support@gena-ai.app</span></small>
+    </div>
+  </div>
 </section>
 
 </main>
 
-<footer style="background:#0F1A24;color:#9FB1BD;border-top:1px solid #22323F">
-<div style="max-width:1200px;margin:0 auto;box-sizing:border-box;padding:24px clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:14px">
-<span>© 2026 gena-ai. Все права защищены.</span>
-<span>Поддержка: <span style="font-family:'JetBrains Mono',ui-monospace,monospace;color:#D7E3EA;user-select:all">support@gena-ai.app</span></span>
-</div>
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 gena-ai. Все права защищены.</span>
+    <span>macOS · Windows · Linux</span>
+  </div>
 </footer>
 
-</div>
-
+<script>
+  (function () {
+    var v = document.getElementById('promo');
+    if (v && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      v.removeAttribute('autoplay');
+      v.pause();
+    }
+  })();
+</script>
 </body>
 </html>
